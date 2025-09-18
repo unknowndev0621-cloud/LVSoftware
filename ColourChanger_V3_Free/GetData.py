@@ -7,12 +7,13 @@ from Create_json import create_json
 
 def load_str_blocks(save_dir: str) -> Dict[str, str]:
     """
-    SaveGames 디렉터리를 받아, Create_json.create_json()을 이용해
-    characterStyle-1.0.json 파일을 생성/갱신하고
-    JSON 안의 ["root"]["properties"]["AllStyleValues_0"]["Str"] 값을
-    type별 블록으로 잘라 반환.
+    #1) Description:
+    --> Creating json files (including data inside with utf-8) from Create_json.py
+    --> Load Str blocks the program will edit
+    --> The value would be stored in ["root"]["properties"]["AllStyleValues_0"]["Str"]
+    
 
-    반환 예시:
+    #2) e.g Return value:
     {
         "Skin": "....;type:Skin;",
         "Hair": "....;type:Hair;",
@@ -20,34 +21,40 @@ def load_str_blocks(save_dir: str) -> Dict[str, str]:
         ...
     }
     """
-    # 1) JSON 생성
-    created = create_json(save_dir)  # Path 리스트 반환
+    # 1) Creating .json via Create_json.py
+    # --> created list would be the list of the ***path***
+    created = create_json(save_dir)  
     if not created:
-        raise FileNotFoundError("characterStyle-1.0.json 생성 실패")
+        raise FileNotFoundError("characterStyle-1.0.json creation failed")
 
-    json_path = created[0]  # 첫 번째 JSON 경로 사용
+    json_path = created[0]  
+    # *** There should be only one characterStyle-1.0.json ***
     if not Path(json_path).exists():
-        raise FileNotFoundError(f"JSON 파일 없음: {json_path}")
+        raise FileNotFoundError(f"No json file exists: {json_path}")
 
-    # 2) JSON 로드
+    # 2) JSON loading
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     s = data["root"]["properties"]["AllStyleValues_0"]["Str"]
 
-    # 3) type별 블록 추출
+    # 3) Blocks
     results: Dict[str, str] = {}
+    """
+    --> hint for format of results
+    --> Thats why imported Dict 
+    """
     prev_end = 0
     for m in re.finditer(r";type:([^;]+)", s):
         typ = m.group(1).strip()
-        block = s[prev_end:m.end()]  # 블록 = 이전 구간부터 type 토큰 끝까지
+        block = s[prev_end:m.end()]  
         results[typ] = block
         prev_end = m.end()
 
     return results
 
 # -------------------------
-# 사용 예시
+# Testing
 # -------------------------
 if __name__ == "__main__":
     save_dir = r"C:\Users\PC\AppData\Local\Longvinter\Saved\SaveGames"
