@@ -2,7 +2,7 @@
 This is a repository for useful Software developed by utilising sav files
 
 # ColourChanger_V3_Free
-```
+
 ## Description: 
 ```
 This is a program for changing Hair, Skin Colour 
@@ -36,4 +36,46 @@ The system will automatically change it by showing handy GUI and also RGB select
 
 5) via using uesave again, save this string into .sav file
 ```
+
+# raidMacro
+
+## Description
 ```
+This is a AHK program for raiding in LV
+
+There are three options: melee, sniper & semi guns, machine gun turret
+
+Keys are binded with F1,2 and 3 respectively
+
+```
+
+## How it works:
+```
+All the keys are assigned as toggle function
+
+So you can just easily turn it on/off
+```
+## TO DO
+```
+Sequence of Sniper() is not good enough 
+(Not includes reloading process, BUT will fix it in future)
+
+```
+
+# MakeCroissant
+## Description:
+```
+This is a AHK program for making +35 Croissants
+
+There is few limitation on it 
+
+==> Can't do both (flour+flour process) & (+20croissant+flour process) at once
+
+==> Can't stop the sequence or you have to do it from beginning (maybe will fix in future, so I will put this as TODO)
+```
+
+## How to use:
+```
+```
+
+
